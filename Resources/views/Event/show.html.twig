@@ -1,11 +1,12 @@
+{% extends 'VibbyBookingBundle::base.html.twig' %}
+
+                 {% block parallax %}{% endblock %}
+
+{% block panels %}
 <h1>Event</h1>
 
 <table class="record_properties">
     <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
         <tr>
             <th>Date_from</th>
             <td>{{ entity.datefrom|date('Y-m-d H:i:s') }}</td>
@@ -43,3 +44,4 @@
         </form>
     </li>
 </ul>
+{% endblock %}

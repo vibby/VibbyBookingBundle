@@ -1,3 +1,6 @@
+{% extends 'VibbyBookingBundle::base.html.twig' %}
+
+{% block panels %}
 <h1>Event edit</h1>
 
 <form action="{{ path('event_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
@@ -20,3 +23,6 @@
         </form>
     </li>
 </ul>
+{% endblock %}
+
+                 {% block parallax %}{% endblock %}

@@ -1,3 +1,8 @@
+{% extends 'VibbyBookingBundle::base.html.twig' %}
+
+                 {% block parallax %}{% endblock %}
+
+{% block panels %}
 <h1>Event creation</h1>
 
 <form action="{{ path('event_create') }}" method="post" {{ form_enctype(form) }}>
@@ -14,3 +19,4 @@
         </a>
     </li>
 </ul>
+{% endblock %}

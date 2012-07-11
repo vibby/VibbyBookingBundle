@@ -1,43 +1,31 @@
-<h1>Event list</h1>
+{% extends 'VibbyBookingBundle::base.html.twig' %}
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Date_from</th>
-            <th>Date_to</th>
-            <th>Title</th>
-            <th>Is_validated</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('event_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{% if entity.datefrom %}{{ entity.datefrom|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{% if entity.dateto %}{{ entity.dateto|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.title }}</td>
-            <td>{{ entity.isvalidated }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('event_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('event_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% block panel03 %}
 
-<ul>
-    <li>
-        <a href="{{ path('event_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+<div style="float:right;width:150px;margin-right:50px;">
+  <div id="bookingFunctions" >
+    <form action="booking_send.php" id="booking" method="post" data="Les champs doivent être correctement remplis, et les dates sélectionnés doivent être valides !">
+      
+      <p>Sélectionner les dates de début et de fin dans le calendrier</p>
+      <input id="date" name="date" class="pregValidate" type="hidden" data="/^20[0-9]{2}\-[0-1]{1}[0-9]{1}\-[0-3]{1}[0-9]{1} - 20[0-9]{2}\-[0-1]{1}[0-9]{1}\-[0-3]{1}[0-9]{1}$/" />
+      <!--label for="prenom"  > Votre prénom</label><br /-->
+      <input id="prenom" class="pregValidate" value="Votre prénom" name="prenom"  title="Votre prénom" data="/^.[^\x00-\x1F\x7F]{2,}$/i" /><br />
+      <!--label for="nom"  > Votre nom</label><br /-->
+      <input id="nom" class="pregValidate" name="nom" value="Votre nom" title="Votre nom" data="/^.[^\x00-\x1F\x7F]{2,}$/i" /><br />
+      <!--label for="email"  > Votre email</label><br /-->
+      <input id="email" class="pregValidate" name="email" value="Votre email"  title="Votre email" data="/^[a-z0-9_\+-]+(\.[a-z0-9_\+.-]+)*@[a-z0-9-]+(\.[a-z0-9.-]+)*\.([a-z]{2,6})$/i" /><br />
+      <!--label for="tel"  > Votre téléphone</label><br /-->
+      <input id="tel" class="pregValidate" name="tel" value="Votre téléphone" title="Votre téléphone" data="/^0[0-69]([_ -./\\ ]?[0-9]{2}){4}$/i" /><br />
+      <input class="submit" type="submit" value="Envoyer la demande" />
+    </form>
+  </div>    
+  <div class="aRestart">
+    Recommencer
+  </div>    
+</div>    
+
+<div id="calendar" style="float:left;">
+
+</div>    
+
+{% endblock %}

@@ -12,7 +12,7 @@ use Vibby\Bundle\BookingBundle\Form\EventType;
 /**
  * Event controller.
  *
- * @Route("/event")
+ * @Route("")
  */
 class EventController extends Controller
 {
@@ -23,6 +23,23 @@ class EventController extends Controller
      * @Template()
      */
     public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('VibbyBookingBundle:Event')->findByDates(date('Y-m'),date('Y').'-'.date('m')+1);
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+
+    /**
+     * Shows a calendar
+     *
+     * @Route("/list", name="list")
+     * @Template()
+     */
+    public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
 
