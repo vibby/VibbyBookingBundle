@@ -28,13 +28,24 @@ class EventController extends Controller
      */
     public function indexAction()
     {
+        $session = $this->getRequest()->getSession();
+        $session->set('sentDatesEventIds', array());
       
         $entity = new Event();
         $form   = $this->createForm(new EventType(), $entity);
 
+        $dates= $this->getBookedDates();
+        
+        $now = new DateTime;
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'bookedDates' => json_encode($dates),
+            'askedDates'  => json_encode(
+                      array(
+                            (int)$now->format('Ym')
+                      )
+                    )
         );
       
       return array();
@@ -46,10 +57,11 @@ class EventController extends Controller
      *
      * @Route("/quick_create", name="event_quick_create")
      * @Method("post")
-     * @Template("VibbyBookingBundle:Event:new.html.twig")
+     * @Template("VibbyBookingBundle:Event:quickNewError.html.twig")
      */
     public function quickCreateAction()
     {
+        
         $entity  = new Event();
         $request = $this->getRequest();
         $form    = $this->createForm(new EventType(), $entity);
@@ -60,13 +72,11 @@ class EventController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('event'));
-        }
+            return $this->render('VibbyBookingBundle:Event:quickNewSuccess.html.twig');
+        } 
+          
+        return array();
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
     }
 
     
@@ -78,22 +88,9 @@ class EventController extends Controller
      */
     public function limitedListAction($dateFrom)
     {
-      
-        try {
-          $date1 = new DateTime($dateFrom);
-          $date2 = new DateTime($dateFrom);
-        } catch (Exception $e) {
-          throw new \Exception('Invalid date information');;
-        }
-      
-        $em = $this->getDoctrine()->getManager();
-        $dates = $em
-          ->getRepository('VibbyBookingBundle:Event')
-          ->getBookedIntervalsByDates(
-                  $date1,
-                  $date2->add(new DateInterval("P3M"))
-               );
 
+        $dates= $this->getBookedDates($dateFrom);
+      
         $response = new Response(json_encode($dates));
         $response->headers->set('Content-Type', 'application/json');
         
@@ -101,6 +98,47 @@ class EventController extends Controller
         
     }
     
+    /**
+     * Get the dates at which the booked elements start and finish
+     */
+    private function getBookedDates($dateFrom = false) {
+
+        $session = $this->getRequest()->getSession();
+        
+        if (!$dateFrom) {
+            $date1 = new DateTime();
+        } else {
+          try {
+            $date1 = new DateTime($dateFrom);
+          } catch (Exception $e) {
+            throw new \Exception('Invalid date information');;
+          }
+        }
+        $date2 = clone($date1);
+
+        $sendDatesEventIds = $session->get('sentDatesEventIds');
+        if (!$sendDatesEventIds) $sendDatesEventIds = array();
+
+        $em = $this->getDoctrine()->getManager();
+        $events = $em
+          ->getRepository('VibbyBookingBundle:Event')
+          ->findByDates(
+                  $date1,
+                  $date2->add(new DateInterval("P3M")),
+                  $sendDatesEventIds
+               );
+        $dates = $em
+          ->getRepository('VibbyBookingBundle:Event')
+          ->getBookedIntervals($events);
+
+        $doneIds = array();
+        foreach($events as $event) $doneIds[] = $event['id'];
+//var_dump($event);
+        $session->set('sentDatesEventIds', array_merge($sendDatesEventIds,$doneIds));
+        
+        return ($dates);
+      
+    }
     
     /**
      * Lists all Event entities.

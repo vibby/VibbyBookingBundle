@@ -17,12 +17,15 @@ class EventRepository extends EntityRepository {
    *
    * @return array Some event entities.
    */
-  public function findByDates($date1, $date2) {
-    
+  public function findByDates($date1, $date2, $unwantedIds = array()) {
 
     $em = $this->getEntityManager();
-    if ($date1 > $date2) {$temp = $date2; $date2 = $date1; $date1 = $date2; }
-    $dql =  "select e.date_from, e.date_to
+    if ($date1 > $date2) {
+      $temp = $date2;
+      $date2 = $date1;
+      $date1 = $temp;
+    }
+    $dql = "select e.id, e.date_from, e.date_to
             from Vibby\Bundle\BookingBundle\Entity\Event e
             where
             not(
@@ -35,32 +38,36 @@ class EventRepository extends EntityRepository {
               and
                 e.date_to < '" . $date2->format('Y-m-d') . "'
               )
+            )";
+//    echo $dql;
+    if (count($unwantedIds)) {
+      $dql .= "
+            and (
+              e.id NOT IN (" . implode(',', $unwantedIds) . ")
             )
             ";
-            
+    }
+
     $q = $em->createQuery($dql);
     return $q->getResult();
   }
-  
-  public function getBookedIntervalsByDates($date1, $date2) {
-        $entities = $this->findByDates($date1,$date2);
-        $dates = array();
-        $prevDateTo = 0;
-        foreach($entities as $entity)
-        {
-          if ($prevDateTo != $entity["date_from"]->format('Ymd'))
-          {
-            $dates[] = array(
-              $entity["date_from"]->format('U')+60*60*24*.5,
-              $entity["date_to"]->format('U')+60*60*24*.5,
-            );
-          } else {
-            $dates[count($dates)-1][1] = $entity["date_to"]->format('U');
-          }
-          $prevDateTo = $entity["date_to"]->format('U');
-        }
-        
-        return $dates;
+
+  public function getBookedIntervals($entities) {
+    $dates = array();
+    $prevDateTo = 0;
+    foreach ($entities as $entity) {
+      if ($prevDateTo != $entity["date_from"]->format('Ymd')) {
+        $dates[] = array(
+            $entity["date_from"]->format('U') + 60 * 60 * 24 * .5,
+            $entity["date_to"]->format('U') + 60 * 60 * 24 * .5,
+        );
+      } else {
+        $dates[count($dates) - 1][1] = $entity["date_to"]->format('U');
+      }
+      $prevDateTo = $entity["date_to"]->format('U');
+    }
+
+    return $dates;
   }
 
 }

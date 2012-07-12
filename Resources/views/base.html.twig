@@ -9,12 +9,11 @@
           <meta name="copyright" content="vibby">
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-
             <title>{% block title %}Pierre Blanche - 44 Le Cormier{% endblock %}</title>
-            {% block stylesheets %}{% endblock %}
 
             <!--css-->
             <link href="{{ asset('/bundles/vibbybooking/css/styles.css') }}" type="text/css" rel="stylesheet" />
+            {% block stylesheets %}{% endblock %}
 
             <!--js-->
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
@@ -25,7 +24,6 @@
             <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/pierreblanche.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/jquery.datepick.js') }}"></script>
 
-            <link href="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/style.humanity.datepick.css') }}" rel="stylesheet" type="text/css" />
 
             </head>
 
@@ -140,28 +138,7 @@
                 {% endblock %}
 
 
-
-
-
-                <script type="text/javascript">
-                  stepcarousel.setup({
-                    galleryid: 'mygallery', //id of carousel DIV
-                    beltclass: 'belt', //class of inner "belt" DIV containing all the panel DIVs
-                    panelclass: 'panel', //class of panel DIVs each holding content
-                    autostep: {enable:false, moveby:1, pause:9000},
-                    panelbehavior: {speed:1000, wraparound:false, persist:true},
-                    defaultbuttons: {enable: true, moveby: 1, leftnav: ['{{ asset('/bundles/vibbybooking/images/back.gif') }}', -50, 90], rightnav: ['{{ asset('/bundles/vibbybooking/images/next.gif') }}', 15, 90]},
-                    statusvars: ['statusA', 'statusB', 'statusC'], 
-                    contenttype: ['inline'] 
-                  })
-                </script>
-
               </div>
-
-              <!--img title="Back 1 panels" style="z-index: 50; position: absolute; left: 0; top: 229px; cursor: pointer; opacity: 1;" src="{{ asset('/bundles/vibbybooking/images/back.gif') }}" />
-              <img title="Forward 1 panels" style="z-index: 50; position: absolute; right: 0; top: 229px; cursor: pointer; opacity: 1;" src="{{ asset('/bundles/vibbybooking/images/next.gif') }}" /-->
-
-
 
               {% block javascripts %}{% endblock %}
 

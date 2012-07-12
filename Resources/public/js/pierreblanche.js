@@ -3,11 +3,6 @@
 
 jQuery(document).ready(function(){
 
-  alldata = 
-  {
-    "resas":[],
-    "ids":""
-  };
   
   function markAsBooked(date1,date2){
     date1El = jQuery('.dp'+date1+'000');
@@ -16,7 +11,7 @@ jQuery(document).ready(function(){
     if (date1El.hasClass('bookedlast')) {
       date1El.replaceWith('<span class="dp'+date1+'000 booked">'+date1El.html()+'</span>');
     } else {
-//      date1El.replaceWith('<span class="dp'+date1+'000 bookedfirst">'+date1El.html()+'</span>');
+      //      date1El.replaceWith('<span class="dp'+date1+'000 bookedfirst">'+date1El.html()+'</span>');
       date1El.addClass('bookedfirst');
     }
 
@@ -37,17 +32,17 @@ jQuery(document).ready(function(){
           idate = idate + 3600;
         }
       }
-        jQuery('.dp'+idate+'000').each(function(index){
-          if (!jQuery(this).hasClass('datepick-other-month')) {
-            jQuery(this).replaceWith('<span class="'+jQuery(this).attr('class')+' booked">'+jQuery(this).html()+'</span>');
-          }
-        });
-//        jQuery('.dp'+idate+'000').replaceWith('<span class="dp'+idate+'000 booked">'+jQuery('.dp'+idate+'000').html()+'</span>');
-//      }
+      jQuery('.dp'+idate+'000').each(function(index){
+        if (!jQuery(this).hasClass('datepick-other-month')) {
+          jQuery(this).replaceWith('<span class="'+jQuery(this).attr('class')+' booked">'+jQuery(this).html()+'</span>');
+        }
+      });
+      //        jQuery('.dp'+idate+'000').replaceWith('<span class="dp'+idate+'000 booked">'+jQuery('.dp'+idate+'000').html()+'</span>');
+      //      }
     }
   }
 
-	jQuery('#calendar').datepick(jQuery.extend({
+  jQuery('#calendar').datepick(jQuery.extend({
     rangeSelect: true,
     monthsToShow: [1, 3],
     altField: '#booking_date_from',
@@ -55,12 +50,12 @@ jQuery(document).ready(function(){
     firstDay:7,
     todayText:'',
     onSelect: function(date) { 
-        date = jQuery('#booking_date_from').val();
-        jQuery('#booking_date_from').val(date.substr(0, 10));
-        jQuery('#booking_date_to').val(date.substr(13, 10));
-/*
- *        
- *                        jQuery('#date').addClass('valid');
+      date = jQuery('#booking_date_from').val();
+      jQuery('#booking_date_from').val(date.substr(0, 10));
+      jQuery('#booking_date_to').val(date.substr(13, 10));
+      /*
+       *        
+       *                        jQuery('#date').addClass('valid');
 
         //transformer la date en timestamp
         var dateStr = jQuery('#date').val();
@@ -99,34 +94,37 @@ jQuery(document).ready(function(){
 //                jQuery('.dp'+idate+'000').replaceWith('<span >'+jQuery('.dp'+idate+'000').html()+'</span>');
               }
         }
-*/
+       */
     },
     onChangeMonthYear: function(year, month) { 
           
-          // Afficher les dates reservés qui sont déjà connues
-          for (var idx = 0; idx < alldata.resas.length; idx++) {
-            markAsBooked(alldata.resas[idx].date1,alldata.resas[idx].date2);
-          }
-          // call to json data
-          var src = "app_dev.php/list/"+year+"-"+month;
-          jQuery.ajax({
-            url: src,
-            success: function(data) {
-//              alert (src);
-              data = eval(data);                
-              for (var idx = 0; idx < data.length; idx++) {
-                markAsBooked(data[idx][0],data[idx][1]);
+      // Afficher les dates reservés qui sont déjà connues
+      for (var idx = 0; idx < alldata.resas.length; idx++) {
+        markAsBooked(alldata.resas[idx][0],alldata.resas[idx][1]);
+      }
+          
+      if (jQuery.inArray(year*100+month,alldata.ids) == -1) {
+        // call to json data
+        var src = "app_dev.php/list/"+year+"-"+month;
+        jQuery.ajax({
+          url: src,
+          success: function(data) {
+            //              alert (src);
+            data = eval(data);                
+            alldata.ids[alldata.ids.length] = year*100+month;
+            for (var idx = 0; idx < data.length; idx++) {
+              markAsBooked(data[idx][0],data[idx][1]);
 
-//                alldata.ids = alldata.ids + ',' + data.resas[idx].id;
-                alldata.resas[alldata.resas.length] = data[idx];
-              }
+              alldata.resas[alldata.resas.length] = data[idx];
             }
-          });
+          }
+        });
+      }
 
     }
   },
   jQuery.datepick.regional['fr']
-  ));
+));
 
 });
  
@@ -136,7 +134,7 @@ jQuery(document).ready(function(){
 
 
 // Gestion des formulaires 
- jQuery(document).ready(function(){
+jQuery(document).ready(function(){
 
   jQuery("input.textTitle").each(function(){
     if (jQuery(this).attr('title')) {
@@ -150,7 +148,7 @@ jQuery(document).ready(function(){
     jQuery(this).addClass('editing');
     if (jQuery(this).attr('value')==jQuery(this).attr('title')) {
       jQuery(this).attr('value','');
-//      jQuery('#booking .submit').removeClass('clickable');
+      //      jQuery('#booking .submit').removeClass('clickable');
     } else {
     }
   }).focusout(function(){
@@ -165,10 +163,10 @@ jQuery(document).ready(function(){
       var reg = eval(jQuery(this).attr('data'));
       if (jQuery(this).attr('value').test(reg)) {
         jQuery(this).addClass('valid');
-//        jQuery('#booking .submit').removeClass('clickable');
+        //        jQuery('#booking .submit').removeClass('clickable');
       } else  {
         jQuery(this).addClass('error');
-//        jQuery('#booking .submit').addClass('clickable');
+        //        jQuery('#booking .submit').addClass('clickable');
       }
     }
   });
@@ -190,7 +188,7 @@ jQuery(document).ready(function(){
         el = jQuery('form[action="'+this.url+'"]');
         el.after("<div id='adata'>"+data+"</div>"); 
         el.css("display","none");
-//        jQuery(this).parent().children('.aRestart').css('display','block');
+        //        jQuery(this).parent().children('.aRestart').css('display','block');
       });
     }
   });
