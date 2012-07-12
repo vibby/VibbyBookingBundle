@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="author" content="vibby">
+        <meta name="distribution" content="Global">
+          <meta name="copyright" content="vibby">
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+
+            <title>{% block title %}Pierre Blanche - 44 Le Cormier{% endblock %}</title>
+            {% block stylesheets %}{% endblock %}
+
+            <!--css-->
+            <link href="{{ asset('/bundles/vibbybooking/css/styles.css') }}" type="text/css" rel="stylesheet" />
+
+            <!--js-->
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery_002.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/mootools.js') }}"></script> 
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/pierreblanche.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/jquery.datepick.js') }}"></script>
+            <link href="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/style.humanity.datepick.css') }}" rel="stylesheet" type="text/css" />
+
+            </head>
+
+            <body id="body">
+
+              <div id="wrapper" style="width: 950px; min-height: 670px;">
+                <div id="heat" style="border: 0px none;">
+                  <div id="heat_left"><a href="{{ path('event_list') }}"><img src="{{ asset('/bundles/vibbybooking/images/header_03.png') }}" alt="" width="184" height="129"></a></div>
+                  <div id="heat_left1"><img src="{{ asset('/bundles/vibbybooking/images/header_04.png') }}" alt="" width="718" height="50">
+                      <!--h1 class="style1" style=" margin-left:30px;border:0px;">Hi ! Welcome to my Portfolio.</h1-->
+                  </div>
+                  <div id="heat_left2"><img src="{{ asset('/bundles/vibbybooking/images/header_05.png') }}" alt="" width="51" height="110"></div>	
+
+                  <div id="heat_right_menu" style="border: 0px none;">
+
+                    <ul id="c">
+                      <li><a href="{{ path('event_list') }}">Réservations</a></li>
+                      <li><a href="{{ path('event_new') }}">Nouvelle réservation</a></li>
+                      <li><a href="">Calendrier</a></li>
+                    </ul></div>
+                </div>
+
+                <div>
+                  <div id="mygallery" class="stepcarousel" style="float: left; height:auto; padding: 20px 40px;" >
+                    <div style="width: 3880px; left: 0;" class="belt">
+
+                      {% block panels %}
+
+                      {% endblock %}
+
+                    </div>
+                  </div>
+
+
+
+
+              </div>
+
+              <!--img title="Back 1 panels" style="z-index: 50; position: absolute; left: 0; top: 229px; cursor: pointer; opacity: 1;" src="{{ asset('/bundles/vibbybooking/images/back.gif') }}" />
+              <img title="Forward 1 panels" style="z-index: 50; position: absolute; right: 0; top: 229px; cursor: pointer; opacity: 1;" src="{{ asset('/bundles/vibbybooking/images/next.gif') }}" /-->
+
+
+
+              {% block javascripts %}{% endblock %}
+
+
+
+            </body>
+            </html>

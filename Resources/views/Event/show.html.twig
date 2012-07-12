@@ -1,4 +1,4 @@
-{% extends 'VibbyBookingBundle::base.html.twig' %}
+{% extends 'VibbyBookingBundle::adminbase.html.twig' %}
 
                  {% block parallax %}{% endblock %}
 
@@ -16,8 +16,8 @@
             <td>{{ entity.dateto|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
-            <th>Title</th>
-            <td>{{ entity.title }}</td>
+            <th>Name</th>
+            <td>{{ entity.name }}</td>
         </tr>
         <tr>
             <th>Is_validated</th>

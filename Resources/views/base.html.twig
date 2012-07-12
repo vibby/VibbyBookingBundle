@@ -14,18 +14,18 @@
             {% block stylesheets %}{% endblock %}
 
             <!--css-->
-            <link href="{{ asset('/css/styles.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('/bundles/vibbybooking/css/styles.css') }}" type="text/css" rel="stylesheet" />
 
             <!--js-->
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-            <script type="text/javascript" src="{{ asset('js/jquery_002.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/stepcarousel.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/mootools.js') }}"></script> 
-            <script type="text/javascript" src="{{ asset('js/mParallax.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('js/pierreblanche.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('jquery.datepick-4.0.4/jquery.datepick.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery_002.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/stepcarousel.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/mootools.js') }}"></script> 
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/mParallax.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/pierreblanche.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/jquery.datepick.js') }}"></script>
 
-            <link href="{{ asset('jquery.datepick-4.0.4/style.humanity.datepick.css') }}" rel="stylesheet" type="text/css" />
+            <link href="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/style.humanity.datepick.css') }}" rel="stylesheet" type="text/css" />
 
             </head>
 
@@ -33,11 +33,11 @@
 
               <div id="wrapper" style="width: 950px; height: 670px;">
                 <div id="heat" style="border: 0px none;">
-                  <div id="heat_left"><a href="javascript:stepcarousel.stepTo('mygallery',%201)"><img src="{{ asset('images/header_03.png') }}" alt="" width="184" height="129"></a></div>
-                  <div id="heat_left1"><img src="{{ asset('images/header_04.png') }}" alt="" width="718" height="50">
+                  <div id="heat_left"><a href="javascript:stepcarousel.stepTo('mygallery',%201)"><img src="{{ asset('/bundles/vibbybooking/images/header_03.png') }}" alt="" width="184" height="129"></a></div>
+                  <div id="heat_left1"><img src="{{ asset('/bundles/vibbybooking/images/header_04.png') }}" alt="" width="718" height="50">
                       <!--h1 class="style1" style=" margin-left:30px;border:0px;">Hi ! Welcome to my Portfolio.</h1-->
                   </div>
-                  <div id="heat_left2"><img src="{{ asset('images/header_05.png') }}" alt="" width="51" height="110"></div>	
+                  <div id="heat_left2"><img src="{{ asset('/bundles/vibbybooking/images/header_05.png') }}" alt="" width="51" height="110"></div>	
 
                   <div id="heat_right_menu" style="border: 0px none;">
 
@@ -112,16 +112,16 @@
 
                   <div id="parallax">
                     <div style="width: 1050px; height: 250px; position: absolute; left: 99.9261%; margin-left: -1049.22px; top: 0.0586815%; margin-top: -0.146704px;">
-                      <img src="{{ asset('images/layer6.png') }}" alt="" style="position: absolute; left: 1px; top: -12px;">  	
+                      <img src="{{ asset('/bundles/vibbybooking/images/layer6.png') }}" alt="" style="position: absolute; left: 1px; top: -12px;">  	
                     </div>
                     <div style="width: 1500px; height: 250px; position: absolute; left: 99.9261%; margin-left: -1498.89px; top: 0.0586815%; margin-top: -0.146704px;">
-                      <img src="{{ asset('images/layer5.png') }}" alt="" border="0">  	</div>
+                      <img src="{{ asset('/bundles/vibbybooking/images/layer5.png') }}" alt="" border="0">  	</div>
                     <div style="width: 1200px; height: 250px; position: absolute; left: 99.9261%; margin-left: -1199.11px; top: 0.0586815%; margin-top: -0.146704px;">
-                      <img src="{{ asset('images/layer3.png') }}" alt="" border="0">  	</div>
+                      <img src="{{ asset('/bundles/vibbybooking/images/layer3.png') }}" alt="" border="0">  	</div>
                     <div style="width: 1300px; height: 250px; position: absolute; left: 99.9261%; margin-left: -1299.04px; top: 0.0586815%; margin-top: -0.146704px;">
-                      <img src="{{ asset('images/layer2.png') }}" alt="" border="0">  	</div>
+                      <img src="{{ asset('/bundles/vibbybooking/images/layer2.png') }}" alt="" border="0">  	</div>
                     <div style="width: 1450px; height: 250px; position: absolute; left: 99.9261%; margin-left: -1448.93px; top: 0.0586815%; margin-top: -0.146704px;">
-                      <img src="{{ asset('images/layer1.png') }}" alt="" border="0">  	</div>
+                      <img src="{{ asset('/bundles/vibbybooking/images/layer1.png') }}" alt="" border="0">  	</div>
                   </div>
                   <script type="text/javascript">
                     window.addEvent('domready', function () {  
@@ -150,7 +150,7 @@
                     panelclass: 'panel', //class of panel DIVs each holding content
                     autostep: {enable:false, moveby:1, pause:9000},
                     panelbehavior: {speed:1000, wraparound:false, persist:true},
-                    defaultbuttons: {enable: true, moveby: 1, leftnav: ['{{ asset('images/back.gif') }}', -50, 90], rightnav: ['{{ asset('images/next.gif') }}', 15, 90]},
+                    defaultbuttons: {enable: true, moveby: 1, leftnav: ['{{ asset('/bundles/vibbybooking/images/back.gif') }}', -50, 90], rightnav: ['{{ asset('/bundles/vibbybooking/images/next.gif') }}', 15, 90]},
                     statusvars: ['statusA', 'statusB', 'statusC'], 
                     contenttype: ['inline'] 
                   })
@@ -158,8 +158,8 @@
 
               </div>
 
-              <!--img title="Back 1 panels" style="z-index: 50; position: absolute; left: 0; top: 229px; cursor: pointer; opacity: 1;" src="{{ asset('images/back.gif') }}" />
-              <img title="Forward 1 panels" style="z-index: 50; position: absolute; right: 0; top: 229px; cursor: pointer; opacity: 1;" src="{{ asset('images/next.gif') }}" /-->
+              <!--img title="Back 1 panels" style="z-index: 50; position: absolute; left: 0; top: 229px; cursor: pointer; opacity: 1;" src="{{ asset('/bundles/vibbybooking/images/back.gif') }}" />
+              <img title="Forward 1 panels" style="z-index: 50; position: absolute; right: 0; top: 229px; cursor: pointer; opacity: 1;" src="{{ asset('/bundles/vibbybooking/images/next.gif') }}" /-->
 
 
 

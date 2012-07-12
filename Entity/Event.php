@@ -71,6 +71,11 @@ class Event
     private $is_validated;
 
 
+    public function __construct()
+    {
+        $this->is_validated = false;
+    }
+    
     /**
      * Get id
      *
@@ -134,6 +139,18 @@ class Event
     public function setIsValidated($isValidated)
     {
         $this->is_validated = $isValidated;
+        return $this;
+    }
+
+    /**
+     * Set is_validated to true
+     *
+     * @param boolean $isValidated
+     * @return Event
+     */
+    public function validate()
+    {
+        $this->setIsValidated(true);
         return $this;
     }
 

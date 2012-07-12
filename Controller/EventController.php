@@ -2,12 +2,16 @@
 
 namespace Vibby\Bundle\BookingBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Vibby\Bundle\BookingBundle\Entity\Event;
 use Vibby\Bundle\BookingBundle\Form\EventType;
+use Vibby\Bundle\BookingBundle\Form\EventAdminType;
+use \DateTime;
+use \DateInterval;
 
 /**
  * Event controller.
@@ -24,23 +28,89 @@ class EventController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('VibbyBookingBundle:Event')->findByDates(date('Y-m'),date('Y').'-'.date('m')+1);
+      
+        $entity = new Event();
+        $form   = $this->createForm(new EventType(), $entity);
 
         return array(
-            'entities' => $entities,
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+      
+      return array();
+    }
+    
+
+    /**
+     * Creates a new Event entity.
+     *
+     * @Route("/quick_create", name="event_quick_create")
+     * @Method("post")
+     * @Template("VibbyBookingBundle:Event:new.html.twig")
+     */
+    public function quickCreateAction()
+    {
+        $entity  = new Event();
+        $request = $this->getRequest();
+        $form    = $this->createForm(new EventType(), $entity);
+        $form->bindRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('event'));
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
         );
     }
 
+    
     /**
      * Shows a calendar
      *
-     * @Route("/list", name="list")
+     * @Route("/list/{dateFrom}", name="limitedList")
      * @Template()
      */
-    public function listAction()
+    public function limitedListAction($dateFrom)
     {
+      
+        try {
+          $date1 = new DateTime($dateFrom);
+          $date2 = new DateTime($dateFrom);
+        } catch (Exception $e) {
+          throw new \Exception('Invalid date information');;
+        }
+      
+        $em = $this->getDoctrine()->getManager();
+        $dates = $em
+          ->getRepository('VibbyBookingBundle:Event')
+          ->getBookedIntervalsByDates(
+                  $date1,
+                  $date2->add(new DateInterval("P3M"))
+               );
+
+        $response = new Response(json_encode($dates));
+        $response->headers->set('Content-Type', 'application/json');
+        
+        return $response;
+        
+    }
+    
+    
+    /**
+     * Lists all Event entities.
+     *
+     * @Route("/list", name="event_list")
+     * @Template()
+     */
+    public function listAction($dateFrom = null, $dateTo = null)
+    {
+      
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('VibbyBookingBundle:Event')->findAll();
@@ -83,7 +153,7 @@ class EventController extends Controller
     public function newAction()
     {
         $entity = new Event();
-        $form   = $this->createForm(new EventType(), $entity);
+        $form   = $this->createForm(new EventAdminType(), $entity);
 
         return array(
             'entity' => $entity,
@@ -91,6 +161,7 @@ class EventController extends Controller
         );
     }
 
+    
     /**
      * Creates a new Event entity.
      *
@@ -135,7 +206,7 @@ class EventController extends Controller
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
-        $editForm = $this->createForm(new EventType(), $entity);
+        $editForm = $this->createForm(new EventAdminType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -162,7 +233,7 @@ class EventController extends Controller
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
-        $editForm   = $this->createForm(new EventType(), $entity);
+        $editForm   = $this->createForm(new EventAdminType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();

@@ -4,6 +4,14 @@
 
 <div style="float:right;width:150px;margin-right:50px;">
   <div id="bookingFunctions" >
+  <form action="{{ path('event_quick_create') }}"  id="booking" method="post" data="Les champs doivent être correctement remplis, et les dates sélectionnés doivent être valides !" {{ form_enctype(form) }}>
+      <p>Sélectionner les dates de début et de fin dans le calendrier</p>
+      <input id="date" name="date" class="pregValidate" type="hidden" data="/^20[0-9]{2}\-[0-1]{1}[0-9]{1}\-[0-3]{1}[0-9]{1} - 20[0-9]{2}\-[0-1]{1}[0-9]{1}\-[0-3]{1}[0-9]{1}$/" />
+      {% form_theme form 'VibbyBookingBundle:Form:fields.html.twig' %}
+      {{ form_widget(form) }}
+      <input class="submit" type="submit" value="Envoyer la demande" />
+  </form>
+    {#
     <form action="booking_send.php" id="booking" method="post" data="Les champs doivent être correctement remplis, et les dates sélectionnés doivent être valides !">
       
       <p>Sélectionner les dates de début et de fin dans le calendrier</p>
@@ -18,6 +26,7 @@
       <input id="tel" class="pregValidate" name="tel" value="Votre téléphone" title="Votre téléphone" data="/^0[0-69]([_ -./\\ ]?[0-9]{2}){4}$/i" /><br />
       <input class="submit" type="submit" value="Envoyer la demande" />
     </form>
+    #}
   </div>    
   <div class="aRestart">
     Recommencer

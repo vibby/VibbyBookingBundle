@@ -14,20 +14,44 @@ class EventType extends AbstractType
             ->add('date_from','date',array(
 		'widget' => 'single_text',
                 'input' => 'datetime',
-                'format' => 'dd/MM/yyyy',
+                'format' => 'yyyy-MM-dd',
                 'attr' => array('class' => 'date', 'style' => 'display:none;'),
 		))
             ->add('date_to','date',array(
                 'widget' => 'single_text',
                 'input' => 'datetime',
-                'format' => 'dd/MM/yyyy',
+                'format' => 'yyyy-MM-dd',
                 'attr' => array('class' => 'date', 'style' => 'display:none;'),
                 ))
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
-            ->add('phone')
-            ->add('is_validated')
+            ->add('firstname', 'text', array('attr' => array(
+                'Placeholder' => 'Votre Prénom',
+                'class' => 'pregValidate',
+                'value' => 'Votre prénom',
+                'title' => 'Votre prénom',
+                'data'  => '/^.[^\x00-\x1F\x7F]{2,}$/i',
+                )))
+            ->add('lastname', 'text', array('attr' => array(
+                'Placeholder' => 'Votre nom',
+                'class' => 'pregValidate',
+                'value' => 'Votre nom',
+                'title' => 'Votre nom',
+                'data'  => '/^.[^\x00-\x1F\x7F]{2,}$/i',
+                )))
+            ->add('email', 'text', array('attr' => array(
+                'Placeholder' => 'Votre email',
+                'class' => 'pregValidate',
+                'value' => 'Votre email',
+                'title' => 'Votre email',
+                'data'  => '/^[a-z0-9_\+-]+(\.[a-z0-9_\+.-]+)*@[a-z0-9-]+(\.[a-z0-9.-]+)*\.([a-z]{2,6})$/i',
+                )))
+            ->add('phone', 'text', array('attr' => array(
+                'Placeholder' => 'Votre téléphone',
+                'class' => 'pregValidate',
+                'value' => 'Votre téléphone',
+                'title' => 'Votre téléphone',
+                'data'  => '/^0[0-69]([_ -./\\ ]?[0-9]{2}){4}$/i',
+                )))
+//            ->add('is_validated')
         ;
     }
 
@@ -40,6 +64,6 @@ class EventType extends AbstractType
 
     public function getName()
     {
-        return 'vibby_bundle_bookingbundle_eventtype';
+        return 'booking';
     }
 }
