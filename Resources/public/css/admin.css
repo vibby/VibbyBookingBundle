@@ -1,0 +1,25 @@
+
+.records_list tbody tr:hover{
+  background:#1BC4E6;
+}
+
+.records_list td {
+  padding:4px 8px;
+  margin:0;
+}
+
+.records_actions li {
+  display: inline;
+}
+
+.records_actions li a{
+  display: inline-block;
+  margin: 0 3px;
+  padding: 1px 3px;
+  border:1px solid #fff;
+}
+
+.records_actions li a:hover{
+  background: #fff;
+  color:  #18ACCA;
+}

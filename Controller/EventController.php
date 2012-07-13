@@ -327,4 +327,46 @@ class EventController extends Controller
             ->getForm()
         ;
     }
+    
+    /**
+     * Deletes a Event entity.
+     *
+     * @Route("/{id}/validate", name="event_validate")
+     * @Method("get")
+     */
+    public function validateAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('VibbyBookingBundle:Event')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Event entity.');
+        }
+
+        $entity->validate(); 
+        $em->flush(); 
+
+        return $this->redirect($this->generateUrl('event_list'));
+    }    
+    
+    /**
+     * Deletes a Event entity.
+     * 
+    * @Route("/{id}/unvalidate", name="event_unvalidate")
+     * @Method("get")
+     */
+    public function unvalidateAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('VibbyBookingBundle:Event')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Event entity.');
+        }
+
+        $entity->unvalidate(); 
+        $em->flush(); 
+
+        return $this->redirect($this->generateUrl('event_list'));
+    }     
 }

@@ -38,6 +38,8 @@ class EventRepository extends EntityRepository {
               and
                 e.date_to < '" . $date2->format('Y-m-d') . "'
               )
+            ) and (
+              e.is_validated = 1
             )";
 //    echo $dql;
     if (count($unwantedIds)) {

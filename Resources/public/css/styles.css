@@ -488,6 +488,7 @@ input.error textarea.error{
   background-color:#CB842E;  
   font-size:1.3em;
   height:30px;
+  cursor: pointer;
 }
 .areturn{
   border:2px solid;

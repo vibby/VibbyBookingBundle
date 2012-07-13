@@ -145,12 +145,22 @@ class Event
     /**
      * Set is_validated to true
      *
-     * @param boolean $isValidated
      * @return Event
      */
     public function validate()
     {
         $this->setIsValidated(true);
+        return $this;
+    }
+
+        /**
+     * Set is_validated to false
+     *
+     * @return Event
+     */
+    public function unvalidate()
+    {
+        $this->setIsValidated(false);
         return $this;
     }
 
