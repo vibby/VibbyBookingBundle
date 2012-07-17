@@ -1,5 +1,6 @@
 {
     "name": "vibby/vibby-booking-bundle",
+    "version" : "alpha1",
     "type": "symfony-bundle",
     "description": "Symfony Booking system Bundle",
     "keywords": ["booking","reservation","calendar"],
