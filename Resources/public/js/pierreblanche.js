@@ -109,7 +109,6 @@ jQuery(document).ready(function(){
         jQuery.ajax({
           url: src,
           success: function(data) {
-            //              alert (src);
             data = eval(data);                
             alldata.ids[alldata.ids.length] = year*100+month;
             for (var idx = 0; idx < data.length; idx++) {
@@ -161,7 +160,7 @@ jQuery(document).ready(function(){
       jQuery(this).removeClass('valid');
     } else {
       var reg = eval(jQuery(this).attr('data'));
-      if (jQuery(this).attr('value').test(reg)) {
+      if (jQuery(this).attr('value').match(reg)) {
         jQuery(this).addClass('valid');
         //        jQuery('#booking .submit').removeClass('clickable');
       } else  {
@@ -174,30 +173,23 @@ jQuery(document).ready(function(){
   jQuery('form').submit(function(e){
     var error = false;
     e.preventDefault();
-    this.getChildren('.pregValidate').each(function(input){
-      jQuery(input).trigger('focusout');
-      if (input.get("type") != 'submit') {
-        if (input.hasClass('error')) { error = true;}
+    jQuery(this).children('.pregValidate').each(function(input){
+      var inputE = jQuery(input);
+      inputE.trigger('focusout');
+      if (inputE.attr("type") != 'submit') {
+        if (inputE.hasClass('error')) { error = true;}
       }
     });
     if (error) {
       alert (this.get('data'));
     } else { 
-      el = this;
-      jQuery.post(this.get('action'), jQuery(this).serialize(), function(data,result,httprequest){
-        el = jQuery('form[action="'+this.url+'"]');
+      el = jQuery(this);
+      jQuery.post(el.attr('action'), el.serialize(), function(data,result,httprequest){
         el.after("<div id='adata'>"+data+"</div>"); 
         el.css("display","none");
-        //        jQuery(this).parent().children('.aRestart').css('display','block');
       });
     }
   });
-
-  jQuery('.aRestart').click(function() {
-    jQuery('.aRestart').css('display','none');
-    jQuery('#adata').css('display','none');
-    jQuery('#bookingFunctions').css('display','block');
-  })
 
 });
   
