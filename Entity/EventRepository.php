@@ -13,11 +13,11 @@ use Doctrine\ORM\EntityRepository;
 class EventRepository extends EntityRepository {
 
   /**
-   * Finds all events included in 2 dates.
+   * Get the query to find all events included in 2 dates.
    *
    * @return array Some event entities.
    */
-  public function findByDates($date1, $date2, $unwantedIds = array()) {
+  public function findByDatesQuery($date1, $date2, $unwantedIds = array()) {
 
     $em = $this->getEntityManager();
     if ($date1 > $date2) {
@@ -50,23 +50,50 @@ class EventRepository extends EntityRepository {
             ";
     }
 
-    $q = $em->createQuery($dql);
-    return $q->getResult();
+    return $em->createQuery($dql);
+  }
+  
+  
+  /**
+   * Finds all events included in 2 dates.
+   *
+   * @return array Some event entities.
+   */
+  public function findByDates($date1, $date2, $unwantedIds = array()) {
+    
+    return $this->findByDatesQuery($date1, $date2, $unwantedIds)->getResult();
+    
+  }
+  
+  /**
+   * Finds all events included in 2 dates.
+   *
+   * @return array Some event entities.
+   */
+  public function listAllQuery() {
+    
+    $dql = "select e
+              from Vibby\Bundle\BookingBundle\Entity\Event e
+            ";
+
+    return $this->getEntityManager()->createQuery($dql);
+    
   }
 
-  public function getBookedIntervals($entities) {
+  public function getBookedIntervals($events) {
+    
     $dates = array();
     $prevDateTo = 0;
-    foreach ($entities as $entity) {
-      if ($prevDateTo != $entity["date_from"]->format('Ymd')) {
+    foreach ($events as $event) {
+      if ($prevDateTo != $event["date_from"]->format('Ymd')) {
         $dates[] = array(
-            $entity["date_from"]->format('U') + 60 * 60 * 24 * .5,
-            $entity["date_to"]->format('U') + 60 * 60 * 24 * .5,
+            $event["date_from"]->format('U') + 60 * 60 * 24 * .5,
+            $event["date_to"]->format('U') + 60 * 60 * 24 * .5,
         );
       } else {
-        $dates[count($dates) - 1][1] = $entity["date_to"]->format('U');
+        $dates[count($dates) - 1][1] = $event["date_to"]->format('U');
       }
-      $prevDateTo = $entity["date_to"]->format('U');
+      $prevDateTo = $event["date_to"]->format('U');
     }
 
     return $dates;

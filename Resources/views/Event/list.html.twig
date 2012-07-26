@@ -9,16 +9,16 @@
 <table class="records_list">
     <thead>
         <tr>
-            <th>{% trans %}Name{% endtrans %}</th>
-            <th>{% trans %}Email{% endtrans %}</th>
-            <th>{% trans %}Phone{% endtrans %}</th>
-            <th>{% trans %}From{% endtrans %}</th>
-            <th>{% trans %}To{% endtrans %}</th>
+            <th>{{ pagination.sortable('Name', 'e.lastname')|raw }}</th>
+            <th>{{ pagination.sortable('Email', 'e.email')|raw }}</th>
+            <th>{{ pagination.sortable('Phone', 'e.phone')|raw }}</th>
+            <th>{{ pagination.sortable('From', 'e.date_from')|raw }}</th>
+            <th>{{ pagination.sortable('To', 'e.date_to')|raw }}</th>
             <td></td>
         </tr>
     </thead>
     <tbody>
-    {% for entity in entities %}
+    {% for entity in pagination %}
         <tr>
             <td>
                 <a href="{{ path('event_edit', { 'id': entity.id}) }}">
@@ -41,6 +41,9 @@
     </tbody>
 </table>
 
+<div class="navigation">
+    {{ pagination.render()|raw }}
+</div>
 
 {% endblock %}
 

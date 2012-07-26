@@ -25,7 +25,7 @@
 
     <div id="wrapper" style="width: 950px; min-height: 670px;">
       <div id="heat" style="border: 0px none;">
-        <div id="heat_left"><a href="{{ path('event_list') }}"><img src="{{ asset('/bundles/vibbybooking/images/header_03.png') }}" alt="" width="184" height="129" /></a></div>
+        <div id="heat_left"><a href="/"><img src="{{ asset('/bundles/vibbybooking/images/header_06.png') }}" alt="" width="184" height="129" /></a></div>
         <div id="heat_left1"><img src="{{ asset('/bundles/vibbybooking/images/header_04.png') }}" alt="" width="718" height="50" />
             <!--h1 class="style1" style=" margin-left:30px;border:0px;">Hi ! Welcome to my Portfolio.</h1-->
         </div>
@@ -44,6 +44,16 @@
         <div id="mygallery" class="stepcarousel" style="float: left; height:auto; padding: 20px 40px;" >
           <div style="width: 3880px; left: 0;" class="belt">
 
+            {% if app.session.hasFlash('notice') %}
+                <div class="flash-notice">
+                    {{ app.session.flash('notice') }}
+                </div>
+            {% endif %}            
+            {% if app.session.hasFlash('error') %}
+                <div class="flash-error">
+                    {{ app.session.flash('error') }}
+                </div>
+            {% endif %}
             {% block panels %}
 
             {% endblock %}

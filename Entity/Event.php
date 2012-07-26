@@ -3,6 +3,7 @@
 namespace Vibby\Bundle\BookingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \DateInterval;
 
 /**
  * Vibby\Bundle\BookingBundle\Entity\Event
@@ -70,10 +71,13 @@ class Event
      */
     private $is_validated;
 
+    
+    protected $em;    
 
-    public function __construct()
+    public function __construct($em = null)
     {
         $this->is_validated = false;
+        $this->em = $em;
     }
     
     /**
@@ -149,6 +153,7 @@ class Event
      */
     public function validate()
     {
+      
         $this->setIsValidated(true);
         return $this;
     }

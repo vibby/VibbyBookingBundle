@@ -6,49 +6,58 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class EventControllerTest extends WebTestCase
 {
-    /*
-    public function testCompleteScenario()
+  
+    private $count;
+    private $client;
+    
+    private function fillRequestForm($data = array(), $entryString = "")
     {
-        // Create a new client to browse the application
-        $client = static::createClient();
-
+        
+        $phone = "012345678";
+        if (!$entryString) {
+          $entryString = sprintf("Test%1$04d_",$this->count);
+          $phone = sprintf("012345%1$04d",$this->count);
+          $this->count++;
+        }
+        
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/event/');
-        $this->assertTrue(200 === $client->getResponse()->getStatusCode());
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        $crawler = $this->client->request('GET', '/');
+        if (!$this->count) $this->assertTrue(200 === $this->client->getResponse()->getStatusCode());
 
-        // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'event[field_name]'  => 'Test',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check data in the show view
-        $this->assertTrue($crawler->filter('td:contains("Test")')->count() > 0);
-
-        // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
-
-        $form = $crawler->selectButton('Edit')->form(array(
-            'event[field_name]'  => 'Foo',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertTrue($crawler->filter('[value="Foo"]')->count() > 0);
-
-        // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
-        $crawler = $client->followRedirect();
-
-        // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $baseData = array(
+            'booking[date_from]'  =>  '2012-01-03',
+            'booking[date_to]'   =>   '2012-01-14',
+            'booking[firstname]'  =>  $entryString.'FN',
+            'booking[lastname]'   =>  $entryString.'LN',
+            'booking[email]'   =>     $entryString.'@test.com',
+            'booking[phone]'   =>     $phone,
+        );
+        $data = array_merge($baseData, $data);
+        
+        $form = $crawler->selectButton('Envoyer la demande')->form($data);
+        $this->client->submit($form);
+        
+        return $entryString;
     }
-    */
+    
+    public function testFillRequestForm()
+    { 
+        // Create a new client to browse the application
+        $this->client = static::createClient();
+        $this->count = 1;
+
+        // Creation
+        $entryString = $this->fillRequestForm();
+        $crawler = $this->client->request('GET', '/list');
+        $this->assertEquals(1, $crawler->filter('table:contains("'.$entryString.'")')->count());
+        
+        // Empty «date from»from
+        $data['booking[date_from]']  = '';
+        $entryString = $this->fillRequestForm($data);
+        $crawler = $this->client->request('GET', '/list');
+        $this->assertEquals(0, $crawler->filter('table:contains("'.$entryString.'")')->count());
+        
+
+    }
+    
 }

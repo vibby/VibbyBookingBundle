@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Vibby\Bundle\BookingBundle\Entity\Event;
 use Vibby\Bundle\BookingBundle\Form\EventType;
 use Vibby\Bundle\BookingBundle\Form\EventAdminType;
+use Knp\Bundle\PaginatorBundle;
 use \DateTime;
 use \DateInterval;
 
@@ -150,12 +151,16 @@ class EventController extends Controller
     {
       
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('VibbyBookingBundle:Event')->findAll();
-
-        return array(
-            'entities' => $entities,
+        $query = $em->getRepository('VibbyBookingBundle:Event')->listAllQuery();
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            10/*limit per page*/
         );
+
+        return compact('pagination');
     }
 
     /**
@@ -343,8 +348,17 @@ class EventController extends Controller
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
-        $entity->validate(); 
-        $em->flush(); 
+        $otherBooking = $em->getRepository('VibbyBookingBundle:Event')->findByDates(
+          $entity->getDateFrom()->add(new \DateInterval('P1D')),
+          $entity->getDateTo()->sub(new \DateInterval('P1D')),
+          array($entity->getId())
+        );
+        if (count($otherBooking)) {
+          $this->get('session')->setFlash('error', 'Impossible de valider. Il y a peut-être une autre réservation à ces dates.');
+        } else {
+          $entity->validate();
+          $em->flush();
+        }
 
         return $this->redirect($this->generateUrl('event_list'));
     }    

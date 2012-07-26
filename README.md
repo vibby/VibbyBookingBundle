@@ -6,22 +6,16 @@ Sf2 ressources-booking system Bundle
 Installation
 ===================
 
- 
- curl -s https://getcomposer.org/installer | php
- 
- vim composer.json
- 
-paste this :
+*Install https://github.com/KnpLabs/symfony-with-composer
 
- {
-   "minimum-stability": "dev",
-   "require": {
-      "vibby/vibby-booking-bundle": "*"
-   },
-   "repositories": [
-     {
-          "type": "git",
-          "url": "https://github.com/vibby/VibbyBookingBundle.git"
-     }
-   ]
- }
+*Add this line : i
+  "vibby/vibby-booking-bundle": "*"    
+  To the require section of composer.json
+
+*Type 
+ php composer.phar install
+
+*Configure Symfony (db access, routes loading, bundle enabling)
+
+*Enjoy
+

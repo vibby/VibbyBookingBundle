@@ -490,20 +490,22 @@ input.error textarea.error{
   height:30px;
   cursor: pointer;
 }
-.areturn{
+.areturn, .flash-notice, .flash-error{
   border:2px solid;
   font-size:1.3em;
   padding:16px 10px 16px 22px;
 }
-.asucces{
+.asucces, .flash-notice{
   background: url("../images/inputValid.gif") no-repeat 2px 22px #bdb;
   color:#161;
 }
-.aerror{
+.aerror, .flash-error{
   background: url("../images/inputError.gif") no-repeat 2px 22px #dbb;
   color:#611;
 }
-
+.flash-notice, .flash-error{
+  width: 830px  ;
+}
 
 #bookingRestart {
   display:none;
@@ -531,7 +533,6 @@ input.error textarea.error{
 
 
 
-@charset "utf-8";
 /* CSS Document */
 
 /*Start layout for browse projects*/
@@ -659,3 +660,6 @@ input.error textarea.error{
 .containt_right_vibby {
   margin-left: 440px;
 }
+
+.asc:before{content:"↓"}
+.desc:before{content:"↑"}
