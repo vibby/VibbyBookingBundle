@@ -98,5 +98,18 @@ class EventRepository extends EntityRepository {
 
     return $dates;
   }
+  
+  public function getLastAndFirstDateFromQuery(\Doctrine\ORM\Query $query) {
+    
+    $dates = $query->execute();
+    $dateTo = new \DateTime();
+    $dateFrom = new \DateTime();
+    foreach ($dates as $date) {
+      if ($date->getDateFrom() < $dateFrom) $dateFrom = $date->getDateFrom();
+      if ($date->getDateTo()   > $dateTo  ) $dateTo   = $date->getDateTo();
+    }
+            
+    return compact('dateFrom','dateTo');
+  }
 
 }

@@ -153,14 +153,23 @@ class EventController extends Controller
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('VibbyBookingBundle:Event')->listAllQuery();
         
+        $limit = 16;
+        $page = $this->get('request')->query->get('page', 1);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
-            $this->get('request')->query->get('page', 1)/*page number*/,
-            10/*limit per page*/
+            $page/*page number*/,
+            $limit /*limit per page*/
+        );
+        
+//        var_dump($query->execute());
+//        die("bépo");
+        
+        $dates = $em->getRepository('VibbyBookingBundle:Event')->getLastAndFirstDateFromQuery(
+            $query
         );
 
-        return compact('pagination');
+        return compact('pagination','dates');
     }
 
     /**

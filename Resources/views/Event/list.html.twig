@@ -1,48 +1,61 @@
 {% extends 'VibbyBookingBundle::adminbase.html.twig' %}
 
-                 {% block parallax %}{% endblock %}
+{% block parallax %}{% endblock %}
 
 {% block panels %}
 
 <h1>{% trans %}List{% endtrans %}</h1>
 
 <table class="records_list">
-    <thead>
-        <tr>
-            <th>{{ pagination.sortable('Name', 'e.lastname')|raw }}</th>
-            <th>{{ pagination.sortable('Email', 'e.email')|raw }}</th>
-            <th>{{ pagination.sortable('Phone', 'e.phone')|raw }}</th>
-            <th>{{ pagination.sortable('From', 'e.date_from')|raw }}</th>
-            <th>{{ pagination.sortable('To', 'e.date_to')|raw }}</th>
-            <td></td>
-        </tr>
-    </thead>
-    <tbody>
+  <thead>
+    <tr>
+      <th>{{ pagination.sortable('Name', 'e.lastname')|raw }}</th>
+      <th>{{ pagination.sortable('Email', 'e.email')|raw }}</th>
+      <th>{{ pagination.sortable('Phone', 'e.phone')|raw }}</th>
+      <th>{{ pagination.sortable('From', 'e.date_from')|raw }}</th>
+      <th>{{ pagination.sortable('To', 'e.date_to')|raw }}</th>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
     {% for entity in pagination %}
-        <tr>
-            <td>
-                <a href="{{ path('event_edit', { 'id': entity.id}) }}">
-                  <strong>{{ entity.name }}</strong>
-                </a>
-            </td>
-            <td>{% if entity.email %}<a href="mailto:{{ entity.email }}">{{ entity.email }}</a>{% endif %}</td>
-            <td>{% if entity.phone %}{{ entity.phone }}{% endif %}</td>
-            <td>{% if entity.datefrom %}{{ entity.datefrom|date('Y-m-d') }}{% endif %}</td>
-            <td>{% if entity.dateto %}{{ entity.dateto|date('Y-m-d') }}{% endif %}</td>
-            <td>
-                {% if entity.isValidated %}
-                    <a href="{{ path('event_unvalidate', { 'id': entity.id }) }}"><img src="{{ asset('/bundles/vibbybooking/images/inputValid.gif') }}" /></a>
-                {% else %}
-                    <a href="{{ path('event_validate', { 'id': entity.id }) }}"><img src="{{ asset('/bundles/vibbybooking/images/inputUnvalid.gif') }}" /></a>
-                {% endif %}
-            </td>
-        </tr>
+    <tr>
+      <td>
+        <a href="{{ path('event_edit', { 'id': entity.id}) }}">
+          <strong>{{ entity.name }}</strong>
+        </a>
+      </td>
+      <td>{% if entity.email %}<a href="mailto:{{ entity.email }}">{{ entity.email }}</a>{% endif %}</td>
+      <td>{% if entity.phone %}{{ entity.phone }}{% endif %}</td>
+      <td>{% if entity.datefrom %}{{ entity.datefrom|date('Y-m-d') }}{% endif %}</td>
+      <td>{% if entity.dateto %}{{ entity.dateto|date('Y-m-d') }}{% endif %}</td>
+      <td>
+        {% if entity.isValidated %}
+        <a href="{{ path('event_unvalidate', { 'id': entity.id }) }}"><img src="{{ asset('/bundles/vibbybooking/images/inputValid.gif') }}" /></a>
+        {% else %}
+        <a href="{{ path('event_validate', { 'id': entity.id }) }}"><img src="{{ asset('/bundles/vibbybooking/images/inputUnvalid.gif') }}" /></a>
+        {% endif %}
+      </td>
+      {% for date in dates %}
+        <td class="calendarItem
+            {% if date >= entity.datefrom or date <= entity.dateto %}
+              {% if entity.isValidated %}
+                validated
+              {% else %}
+                unvalidated
+              {% endif  %}
+            {% endif  %}
+        ">
+          
+        </td>
+      {% endfor %}
+    </tr>
     {% endfor %}
-    </tbody>
+  </tbody>
 </table>
 
 <div class="navigation">
-    {{ pagination.render()|raw }}
+  {{ pagination.render()|raw }}
 </div>
 
 {% endblock %}
