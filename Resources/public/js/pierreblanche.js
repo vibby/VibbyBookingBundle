@@ -1,46 +1,41 @@
 // Gestion du calendrier
 
+function markAsBooked(date1,date2){
+  date1El = jQuery('.dp'+date1+'000');
+  date2El = jQuery('.dp'+date2+'000');
+
+  if (date1El.hasClass('bookedlast')) {
+    date1El.replaceWith('<span class="dp'+date1+'000 booked">'+date1El.html()+'</span>');
+  } else {
+    date1El.addClass('bookedfirst');
+  }
+
+  if (date2El.hasClass('bookedfirst')) {
+    date2El.replaceWith('<span class="dp'+date2+'000 booked">'+date2El.html()+'</span>');
+  } else {
+    date2El.addClass('bookedlast');
+  }
+  
+  for (idate = date1 + 24*60*60; idate <= date2 - 24*60*60; idate = idate + 24*60*60) {
+    // En cas de changement d'heure !
+    // Heure d'été à partir du dernier dimanche de mars
+    if (!(jQuery('.dp'+idate+'000').length)){
+      if (jQuery('.dp'+(idate - 3600)+'000').length){
+        idate = idate - 3600;
+      }
+      if (jQuery('.dp'+(idate + 3600)+'000').length){
+        idate = idate + 3600;
+      }
+    }
+    jQuery('.dp'+idate+'000').each(function(index){
+      if (!jQuery(this).hasClass('datepick-other-month')) {
+        jQuery(this).replaceWith('<span class="'+jQuery(this).attr('class')+' booked">'+jQuery(this).html()+'</span>');
+      }
+    });
+  }
+}
 
 jQuery(document).ready(function(){
-
-  
-  function markAsBooked(date1,date2){
-    date1El = jQuery('.dp'+date1+'000');
-    date2El = jQuery('.dp'+date2+'000');
-    
-    if (date1El.hasClass('bookedlast')) {
-      date1El.replaceWith('<span class="dp'+date1+'000 booked">'+date1El.html()+'</span>');
-    } else {
-      //      date1El.replaceWith('<span class="dp'+date1+'000 bookedfirst">'+date1El.html()+'</span>');
-      date1El.addClass('bookedfirst');
-    }
-
-    if (date2El.hasClass('bookedfirst')) {
-      date2El.replaceWith('<span class="dp'+date2+'000 booked">'+date2El.html()+'</span>');
-    } else {
-      date2El.addClass('bookedlast');
-    }
-    
-    for (idate = date1 + 24*60*60; idate <= date2 - 24*60*60; idate = idate + 24*60*60) {
-      // En cas de changement d'heure !
-      // Heure d'été à partir du dernier dimanche de mars
-      if (!(jQuery('.dp'+idate+'000').length)){
-        if (jQuery('.dp'+(idate - 3600)+'000').length){
-          idate = idate - 3600;
-        }
-        if (jQuery('.dp'+(idate + 3600)+'000').length){
-          idate = idate + 3600;
-        }
-      }
-      jQuery('.dp'+idate+'000').each(function(index){
-        if (!jQuery(this).hasClass('datepick-other-month')) {
-          jQuery(this).replaceWith('<span class="'+jQuery(this).attr('class')+' booked">'+jQuery(this).html()+'</span>');
-        }
-      });
-      //        jQuery('.dp'+idate+'000').replaceWith('<span class="dp'+idate+'000 booked">'+jQuery('.dp'+idate+'000').html()+'</span>');
-      //      }
-    }
-  }
 
   jQuery('#calendar').datepick(jQuery.extend({
     rangeSelect: true,
@@ -49,10 +44,14 @@ jQuery(document).ready(function(){
     altFormat: 'yyyy-mm-dd',
     firstDay:7,
     todayText:'',
+    // onClick: function(date) { 
+    // },
     onSelect: function(date) { 
+          
       date = jQuery('#booking_date_from').val();
       jQuery('#booking_date_from').val(date.substr(0, 10));
       jQuery('#booking_date_to').val(date.substr(13, 10));
+
       /*
        *        
        *                        jQuery('#date').addClass('valid');
@@ -97,7 +96,7 @@ jQuery(document).ready(function(){
        */
     },
     onChangeMonthYear: function(year, month) { 
-          
+
       // Afficher les dates reservés qui sont déjà connues
       for (var idx = 0; idx < alldata.resas.length; idx++) {
         markAsBooked(alldata.resas[idx][0],alldata.resas[idx][1]);

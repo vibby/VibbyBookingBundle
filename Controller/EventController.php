@@ -13,6 +13,7 @@ use Vibby\Bundle\BookingBundle\Form\EventAdminType;
 use Knp\Bundle\PaginatorBundle;
 use \DateTime;
 use \DateInterval;
+use \DatePeriod;
 
 /**
  * Event controller.
@@ -134,7 +135,6 @@ class EventController extends Controller
 
         $doneIds = array();
         foreach($events as $event) $doneIds[] = $event['id'];
-//var_dump($event);
         $session->set('sentDatesEventIds', array_merge($sendDatesEventIds,$doneIds));
         
         return ($dates);
@@ -158,18 +158,25 @@ class EventController extends Controller
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
-            $page/*page number*/,
-            $limit /*limit per page*/
+            $page,
+            $limit
         );
         
-//        var_dump($query->execute());
-//        die("bépo");
-        
-        $dates = $em->getRepository('VibbyBookingBundle:Event')->getLastAndFirstDateFromQuery(
-            $query
+        foreach ($pagination->getItems() as $date) {
+            if (!$dateTo) $dateTo = $date->getDateTo();
+            if (!$dateFrom) $dateFrom = $date->getDateFrom();
+            if ($date->getDateFrom() < $dateFrom) $dateFrom = clone $date->getDateFrom();
+            if ($date->getDateTo()   > $dateTo  ) $dateTo   = clone $date->getDateTo();
+        }            
+        $period = new DatePeriod(
+            $dateFrom,
+            new DateInterval('P1D'),
+            $dateTo->add(new DateInterval('P1D'))
         );
 
-        return compact('pagination','dates');
+        // var_dump($dateTo);die;
+
+        return compact('pagination','period');
     }
 
     /**

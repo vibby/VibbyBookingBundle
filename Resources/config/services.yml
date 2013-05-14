@@ -2,7 +2,7 @@
 ---
 
 services:
-    twig.extension.fordates:
-        class: Vibby\Bundle\BookingBundle\Twig\Extension\fortimeExtension
-        tags:
-            - { name: twig.extension }
+    # twig.extension.fordates:
+    #     class: Vibby\Bundle\BookingBundle\Twig\Extension\fortimeExtension
+    #     tags:
+    #         - { name: twig.extension }

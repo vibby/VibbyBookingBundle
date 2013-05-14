@@ -23,3 +23,16 @@
   background: #fff;
   color:  #18ACCA;
 }
+
+.records_list .calendarItem {
+  margin: 0;
+  padding: 0 1px;
+  font-size: 80%;
+}
+.calendarItem.validated {
+  background-color: #0f0;
+  color: #030;
+}
+.calendarItem.unvalidated {
+  background-color: #f00;
+}

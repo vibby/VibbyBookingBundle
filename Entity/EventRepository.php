@@ -74,6 +74,7 @@ class EventRepository extends EntityRepository {
     
     $dql = "select e
               from Vibby\Bundle\BookingBundle\Entity\Event e
+            order by e.date_from
             ";
 
     return $this->getEntityManager()->createQuery($dql);
@@ -99,17 +100,4 @@ class EventRepository extends EntityRepository {
     return $dates;
   }
   
-  public function getLastAndFirstDateFromQuery(\Doctrine\ORM\Query $query) {
-    
-    $dates = $query->execute();
-    $dateTo = new \DateTime();
-    $dateFrom = new \DateTime();
-    foreach ($dates as $date) {
-      if ($date->getDateFrom() < $dateFrom) $dateFrom = $date->getDateFrom();
-      if ($date->getDateTo()   > $dateTo  ) $dateTo   = $date->getDateTo();
-    }
-            
-    return compact('dateFrom','dateTo');
-  }
-
 }
