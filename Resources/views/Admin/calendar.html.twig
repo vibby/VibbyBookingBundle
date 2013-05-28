@@ -1,21 +1,30 @@
-{% extends 'VibbyBookingBundle::frontbase.html.twig' %}
+{% extends 'VibbyBookingBundle::adminbase.html.twig' %}
 
 {% block stylesheets %}
 <link href="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/style.humanity.datepick.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/jquery.datepick.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/pierreblancheAdmin.js') }}"></script>
+{% endblock %}
+
+{% block javascriptsBottom %}
 <script type="text/javascript">
   alldata = 
   {
     "resas":{{ bookedDates }},
     "ids":{{ askedDates }}
   };
+
 </script>
+
 {% endblock %}
 
-{% block panel03 %}
+
+{% block panels %}
+
 <div style="float:right;width:150px;margin-right:50px;">
   <div id="bookingFunctions" >
     <form action="{{ path('event_quick_create') }}"  id="booking" method="post" data="Les champs doivent être correctement remplis, et les dates sélectionnés doivent être valides !" {{ form_enctype(form) }}>
@@ -31,4 +40,5 @@
 <div id="calendar" style="float:left;">
 
 </div>    
+
 {% endblock %}

@@ -39,7 +39,7 @@ jQuery(document).ready(function(){
 
   jQuery('#calendar').datepick(jQuery.extend({
     rangeSelect: true,
-    monthsToShow: [1, 3],
+    monthsToShow: [3, 3],
     altField: '#booking_date_from',
     altFormat: 'yyyy-mm-dd',
     firstDay:7,
@@ -104,7 +104,7 @@ jQuery(document).ready(function(){
           
       if (jQuery.inArray(year*100+month,alldata.ids) == -1) {
         // call to json data
-        var src = Routing.generate('limitedList', {dateFrom: year+"-"+month});
+        var src = Routing.generate('limitedList', {dateFrom: year+"-"+month, period: 9});
         jQuery.ajax({
           url: src,
           success: function(data) {

@@ -1,0 +1,7 @@
+
+Une nouvelle demande de séjour a été posté sur PierreBlanche :<br />
+Nom : <strong>{{ booking.lastname }}</strong><br />
+Prénom : <strong>{{ booking.firstname }}</strong><br />
+Email : <strong><a href="mailto:{{ booking.email }}">{{ booking.email }}</a></strong><br />
+Date de début de séjour : <strong>{{ booking.dateFrom|date('Y-m-d') }}</strong><br />
+Date de fin de séjour : <strong>{{ booking.dateTo|date('Y-m-d') }}</strong><br /><br />

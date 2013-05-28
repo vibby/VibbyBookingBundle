@@ -1,0 +1,201 @@
+{% extends 'VibbyBookingBundle::base.html.twig' %}
+
+    {% block title %}Pierre Blanche - 44 Le Cormier{% endblock %}
+
+    {% block homelink %}javascript:stepcarousel.stepTo('mygallery',%201){% endblock %}
+
+    {% block stylesheets %}
+      <link href="{{ asset('/bundles/vibbybooking/css/prettyPhoto.css') }}" type="text/css" rel="stylesheet"  media="screen" charset="utf-8" />
+    {% endblock %}
+
+    {% block javascripts %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery_002.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/stepcarousel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/mootools.js') }}"></script> 
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/mParallax.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery.prettyPhoto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/pierreblanche.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/jquery.datepick.js') }}"></script>
+    {% endblock %}
+
+
+
+    {% block menu %}
+          <ul id="c">
+            <li><a href="javascript:stepcarousel.stepTo('mygallery',%202)">KOIKECE ?</a></li>
+            <li><a href="javascript:stepcarousel.stepTo('mygallery',%203)">ALBUM</a></li>
+            <li><a href="javascript:stepcarousel.stepTo('mygallery',%204)">RESERVATION</a></li>
+            <li><a href="javascript:stepcarousel.stepTo('mygallery',%205)">CONTACT</a></li>
+            {% if is_granted('ROLE_ADMIN') %}
+              <li><a href="{{ path('event_list')  }}">ADMIN</a></li>
+            {% endif %}
+          </ul>
+    {% endblock %}
+ 
+    {% block content %}
+        <div id="mygallery" class="stepcarousel" style="float: left;">
+          <div style="width: 3880px; left: 0;" class="belt">
+
+            {% block panels %}
+            <!-- ////////////// PANEL 01 //////////////////////// -->
+            <div style="float: none; position: absolute; left: 0px;" class="panel">
+              {% block panel01 %}
+              <p class="intro"><span class="special">Bonjour,</span> et bienvenue à <span class="special">Pierre-Blanche</span> :<br />une petite maison du coté du <span class="special">Cormier</span> où<br />vous vous sentirez bien :)</p>
+              {% endblock %}
+            </div>
+
+            <!-- ////////////// PANEL 02 //////////////////////// -->
+            <div style="float: none; position: absolute; left: 970px;" class="panel">
+              {% block panel02 %}
+              <div class="apropos">
+                <p><strong>Pierre-Blanche</strong>, c'est le nom d'une maison qui se trouve ...</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc purus, semper id rutrum nec, dignissim eget nibh. Curabitur quis nibh non nisl pellentesque consectetur.</p>
+              </div>
+              {% endblock %}
+
+            </div>
+
+            <!-- ////////////// PANEL 05 //////////////////////// -->
+            <div style="float: none; position: absolute; left: 1940px;" class="panel">
+              {% block panel05 %}
+              <div class="photoalbum">
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/01.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/01-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/02.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/02-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/03.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/03-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/04.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/04-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/05.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/05-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/06.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/06-s.jpg') }}" />
+                </a>
+                <a  class="fancybox hor" rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/07.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/07-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/08.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/08-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/09.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/09-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/10.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/10-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/11.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/11-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/12.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/12-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/13.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/13-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/14.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/14-s.jpg') }}" />
+                </a>
+                <a rel="prettyPhoto[pp_gal]" href="{{ asset('/bundles/vibbybooking/images/album/15.jpg') }}">
+                  <img src="{{ asset('/bundles/vibbybooking/images/album/15-s.jpg') }}" />
+                </a>
+              </div>
+              {% endblock %}
+
+            </div>
+
+
+            <!-- ////////////// PANEL 03 //////////////////////// -->
+            <div style="float: none; position: absolute; left: 2910px;" class="panel">
+              {% block panel03 %}{% endblock %}
+            </div>    
+
+            <!-- ////////////// PANEL 4 //////////////////////// -->
+
+            <div style="float: none; position: absolute; left: 3880px;" class="panel">
+              {% block panel04 %}
+              <div class="containt_left"> 
+                <h3><span> ... Ici</span></h3>
+                <p>Vous nous trouverez facilement en cliquant sur ce <a href="https://maps.google.fr/maps?q=24+Av.+du+Blanc+Cailllou,+la+plaine+sur+mer&hl=fr&sll=47.157046,-2.174478&sspn=0.006245,0.015814&t=h&hnear=24+Avenue+du+Blanc+Cailllou,+44770+La+Plaine-sur-Mer,+Loire-Atlantique,+Pays+de+la+Loire&z=16">lien vers Google Maps</a></p>
+                <p>L'adresse de Pierre Blanche, c'est :</p>
+                <address>24 avenue des Blancs Cailloux<br />
+                  Le Cormier<br />
+                  44770 La Plaine sur Mer
+                </address>
+                <p><br />Téléphone : 01 23 45 67 89</p>
+              </div>
+              <div class="containt_right_vibby"> 
+                <h3><span>ou là ...</span></h3>
+                <form id="contact" method="POST" data="Remplissez tout les champs du formulaire de contact !" action="contact_send.php" >
+                  <label for="nom">Nom </label><input id="contactnom" class="pregValidate" name="nom" title="" data="/^.[^\x00-\x1F\x7F]{2,}$/i" /><br />
+                  <label for="nom">Email </label><input id="contactemail" class="pregValidate" name="email" title="" data="/^[a-z0-9_\+-]+(\.[a-z0-9_\+.-]+)*@[a-z0-9-]+(\.[a-z0-9.-]+)*\.([a-z]{2,6})$/i" /><br />
+                  <label for="nom">Message </label><textarea id="contactmessage" class="pregValidate" name="message" title="" data="/^.[^\x00-\x1F\x7F]{2,}$/i" /></textarea><br />
+                  <label></label><input class="submit" type="submit" value="Et zou !"><br />
+                </form>
+              </div> 
+              {% endblock %}
+            </div>
+            {% endblock %}
+
+          </div>
+        </div>
+
+
+        <div style="height: 30px;"></div>
+
+        {% block parallax %}
+
+        <div id="parallax">
+          <div style="width: 1050px; height: 250px; position: absolute; ">
+            <img src="{{ asset('/bundles/vibbybooking/images/layer6.png') }}" alt="">    
+          </div>
+          <div style="width: 1500px; height: 250px; position: absolute; ">
+            <img src="{{ asset('/bundles/vibbybooking/images/layer5.png') }}" alt="" border="0">    </div>
+          <div style="width: 1200px; height: 250px; position: absolute; ">
+            <img src="{{ asset('/bundles/vibbybooking/images/layer3.png') }}" alt="" border="0">    </div>
+          <div style="width: 1300px; height: 250px; position: absolute; ">
+            <img src="{{ asset('/bundles/vibbybooking/images/layer2.png') }}" alt="" border="0">    </div>
+          <div style="width: 1450px; height: 250px; position: absolute; ">
+            <img src="{{ asset('/bundles/vibbybooking/images/layer1.png') }}" alt="" border="0">    </div>
+        </div>
+        <script type="text/javascript">
+
+/*
+          jQuery(document).ready(function(){
+            jQuery('#parallax>div').parallax({
+            });
+          });  
+*/
+          window.addEvent('domready', function () {  
+            new mParallax($('parallax'));
+            fixPNG($('parallax'));
+          });
+          jQuery(function(){
+            jQuery(".photoalbum a[rel^='prettyPhoto']").prettyPhoto({social_tools: ''});
+          });
+
+        </script>
+      {% endblock %}
+    {% endblock %}
+
+    {% block javascriptsBottom %}
+        <script type="text/javascript">
+          stepcarousel.setup({
+            galleryid: 'mygallery', //id of carousel DIV
+            beltclass: 'belt', //class of inner "belt" DIV containing all the panel DIVs
+            panelclass: 'panel', //class of panel DIVs each holding content
+            autostep: {enable:false, moveby:1, pause:9000},
+            panelbehavior: {speed:1000, wraparound:false, persist:true},
+            defaultbuttons: {enable: true, moveby: 1, leftnav: ['{{ asset('/bundles/vibbybooking/images/back.gif') }}', -50, 90], rightnav: ['{{ asset('/bundles/vibbybooking/images/next.gif') }}', 15, 90]},
+            statusvars: ['statusA', 'statusB', 'statusC'], 
+            contenttype: ['inline'] 
+          })
+        </script>
+    {% endblock %}
+

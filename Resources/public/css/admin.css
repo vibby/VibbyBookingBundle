@@ -36,3 +36,8 @@
 .calendarItem.unvalidated {
   background-color: #f00;
 }
+
+#wrapper {height: auto;}
+
+#containt_footer p {
+    margin-top: 2em;}

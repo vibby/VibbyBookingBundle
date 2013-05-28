@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="vibby" />
+    <meta name="distribution" content="Global" />
+    <meta name="copyright" content="vibby" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <title>{% block title %}Pierre Blanche - 44 Le Cormier{% endblock %}</title>
+
+    <!--css-->
+    <link href="{{ asset('/bundles/vibbybooking/css/styles.css') }}" type="text/css" rel="stylesheet" />
+    {% block stylesheets %}{% endblock %}
+
+    <!--js-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery_002.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/pierreblanche.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/jquery.datepick.js') }}"></script>
+
+  </head> 
+
+  <body id="body">
+
+    <div id="wrapper" style="width: 950px; height: 670px; position: relative;">
+      <div id="heat" style="border: 0px none;">
+        <div id="heat_left"><a href="/"><img src="{{ asset('/bundles/vibbybooking/images/header_06.png') }}" alt="" width="184" height="129" /></a></div>
+        <div id="heat_left1"><img src="{{ asset('/bundles/vibbybooking/images/header_04.png') }}" alt="" width="718" height="50" /></div>
+        <div id="heat_left2"><img src="{{ asset('/bundles/vibbybooking/images/header_05.png') }}" alt="" width="51" height="110" /></div>	
+
+        <div id="heat_right_menu" style="border: 0px none;"></div>
+        
+      </div>
+
+      <div>
+        <div id="mygallery" class="stepcarousel" style="float: left;">
+          <div style="width: 3880px; left: 0;" class="belt">
+
+            {% block panels %}
+
+            <div class="panel">
+              {% block panel03 %}{% endblock %}
+            </div>    
+
+            {% endblock %}
+
+          </div>
+        </div>
+
+
+        <div style="height: 30px;"></div>
+
+        <div id="containt_footer" style="position:absolute; bottom:0;">
+          <p>vibbyBookingBundle <a href="http://vibby.beauvivre.fr">vibby</a> 2012</p>
+        </div>
+      </div>
+
+    </div>
+
+    {% block javascripts %}{% endblock %}
+
+  </body>
+</html>

@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
 
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="author" content="vibby" />
     <meta name="distribution" content="Global" />
@@ -12,54 +13,46 @@
 
     <!--css-->
     <link href="{{ asset('/bundles/vibbybooking/css/styles.css') }}" type="text/css" rel="stylesheet" />
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+      <link href="{{ asset('/bundles/vibbybooking/css/prettyPhoto.css') }}" type="text/css" rel="stylesheet"  media="screen" charset="utf-8" />
+    {% endblock %}
 
     <!--js-->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery_002.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/pierreblanche.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/bundles/vibbybooking/js/jquery.datepick-4.0.4/jquery.datepick.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    {% block javascripts %}{% endblock %}
 
-  </head> 
+
+  </head>
 
   <body id="body">
 
-    <div id="wrapper" style="width: 950px; height: 670px; position: relative;">
-      <div id="heat" style="border: 0px none;">
-        <div id="heat_left"><a href="/"><img src="{{ asset('/bundles/vibbybooking/images/header_06.png') }}" alt="" width="184" height="129" /></a></div>
+    <div id="wrapper">
+      <div id="heat">
+        <div id="heat_left"><a href="{% block homelink %}{% endblock homelink %}"><img src="{{ asset('/bundles/vibbybooking/images/header_03.png') }}" alt="" width="184" height="129" /></a></div>
         <div id="heat_left1"><img src="{{ asset('/bundles/vibbybooking/images/header_04.png') }}" alt="" width="718" height="50" /></div>
-        <div id="heat_left2"><img src="{{ asset('/bundles/vibbybooking/images/header_05.png') }}" alt="" width="51" height="110" /></div>	
+        <div id="heat_left2"><img src="{{ asset('/bundles/vibbybooking/images/header_05.png') }}" alt="" width="51" height="110" /></div> 
 
-        <div id="heat_right_menu" style="border: 0px none;"></div>
-        
+        <div id="heat_right_menu">
+          {% block menu %}
+          {% endblock %}
+        </div>
       </div>
 
       <div>
-        <div id="mygallery" class="stepcarousel" style="float: left;">
-          <div style="width: 3880px; left: 0;" class="belt">
-
-            {% block panels %}
-
-            <div class="panel">
-              {% block panel03 %}{% endblock %}
-            </div>    
-
-            {% endblock %}
-
-          </div>
-        </div>
+        {% block content %}         
+        {% endblock %}
 
 
-        <div style="height: 30px;"></div>
-
-        <div id="containt_footer" style="position:absolute; bottom:0;">
-          <p>vibbyBookingBundle <a href="http://vibby.beauvivre.fr">vibby</a> 2012</p>
+        <div id="containt_footer">
+          <p>Copyright 2010 <a href="http://vibby.beauvivre.fr">vibby</a>. All Rights Reserved.  <a href="{{ path('event_list')  }}">Admin</a></p>
         </div>
       </div>
 
     </div>
 
-    {% block javascripts %}{% endblock %}
+    {% block javascriptsBottom %}
+    {% endblock %}
 
   </body>
 </html>

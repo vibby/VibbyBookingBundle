@@ -1,0 +1,22 @@
+
+VibbyBookingBundleEvent:
+    resource: "@VibbyBookingBundle/Controller/EventController.php"
+    type:     annotation    
+
+VibbyBookingBundleSecurity:
+    resource: "@VibbyBookingBundle/Controller/SecurityController.php"
+    type:     annotation    
+
+VibbyBookingBundleAdmin:
+    resource: "@VibbyBookingBundle/Controller/AdminController.php"
+    type:     annotation    
+    prefix:   /admin
+
+connexion_verification:
+    pattern:   /connexion/verification    
+
+logout:
+    path:   /deconnexion
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

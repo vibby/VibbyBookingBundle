@@ -6,3 +6,13 @@ services:
     #     class: Vibby\Bundle\BookingBundle\Twig\Extension\fortimeExtension
     #     tags:
     #         - { name: twig.extension }
+    request_injector:
+        class: Vibby\Bundle\BookingBundle\DependencyInjection\RequestInjector
+        public: false
+        arguments: ['@service_container']
+
+    booking:
+        class: Vibby\Bundle\BookingBundle\Booking\Booking
+        public: true
+        scope: request       
+        arguments: ['@request_injector', '@doctrine'] 
