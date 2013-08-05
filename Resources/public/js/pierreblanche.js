@@ -169,6 +169,13 @@ jQuery(document).ready(function(){
     }
   });
 
+  initForms();
+
+});
+  
+function initForms() {
+
+
   jQuery('form').submit(function(e){
     var error = false;
     e.preventDefault();
@@ -183,12 +190,22 @@ jQuery(document).ready(function(){
       alert (this.get('data'));
     } else { 
       el = jQuery(this);
-      jQuery.post(el.attr('action'), el.serialize(), function(data,result,httprequest){
-        el.after("<div id='adata'>"+data+"</div>"); 
-        el.css("display","none");
+      jQuery.ajax({
+        type: "POST",
+        url: el.attr('action'),
+        data: el.serialize(),
+        context: el,
+        success: function(data,result,httprequest){
+          jQuery(this).html(data); 
+        },
+        error: function(httprequest, textStatus, errorThrown){
+          alert("Une erreur est survenue (" + errorThrown + ")");
+        },
+        complete: function(httprequest, textStatus){
+          initForms(); 
+        },
       });
     }
   });
 
-});
-  
+}

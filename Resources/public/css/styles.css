@@ -533,9 +533,13 @@ input.error textarea.error{
   font-size:1.3em;
   padding:16px 10px 16px 22px;
 }
-.asucces, .flash-notice{
+.asuccess, .flash-notice{
   background: url("../images/inputValid.gif") no-repeat 2px 22px #bdb;
   color:#161;
+  padding: 1em;
+  border: 2px solid #8B8;
+  font-size:  1.5em;
+  display: block;
 }
 .aerror, .flash-error{
   background: url("../images/inputError.gif") no-repeat 2px 22px #dbb;
@@ -551,6 +555,9 @@ input.error textarea.error{
   cursor:pointer;
 }
 
+#contact {
+  padding-top: 1em;
+}
 #contact label {
   width : 60px;
   display: inline-block;

@@ -1,0 +1,40 @@
+jms_security_extra:
+    secure_all_services: false
+    expressions: true
+
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        in_memory:
+            memory:
+                users:
+                    lutins: { password: xxx, roles: [ 'ROLE_ADMIN' ] }
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        frontend:
+            pattern:    ^/
+            form_login:
+                check_path: /connexion/verification
+                login_path: /connexion
+            logout:
+                path:   /deconnexion
+                target: /
+            anonymous: ~
+            # http_basic:
+            #    realm: "Secured Demo Area"
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+
+

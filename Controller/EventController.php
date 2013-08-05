@@ -8,11 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Vibby\Bundle\BookingBundle\Entity\Event;
 use Vibby\Bundle\BookingBundle\Form\EventType;
+use Vibby\Bundle\BookingBundle\Form\ContactType;
 use Vibby\Bundle\BookingBundle\Form\EventAdminType;
 use Knp\Bundle\PaginatorBundle;
 use \DateTime;
 use \DateInterval;
 use \DatePeriod;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Event controller.
@@ -34,13 +36,16 @@ class EventController extends Controller
         $entity = new Event();
         $form   = $this->createForm(new EventType(), $entity);
 
+        $contactForm = $this->createForm(new ContactType());
+
         $period = new DateInterval("P3M");
         $dates= $this->get('booking')->getBookedDates($period);
 
         $now = new DateTime;
         $data = array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+            'entity'      => $entity,
+            'form'        => $form->createView(),
+            'contactForm' => $contactForm->createView(),
             'bookedDates' => json_encode($dates),
             'askedDates'  => json_encode(
                       array(
@@ -93,8 +98,60 @@ class EventController extends Controller
         return $this->render('VibbyBookingBundle:Event:quickNewError.html.twig');
 
     }
-
     
+    /**
+     * Treate message form
+     *
+     * @Route("/message", name="message")
+     * @ Method("post")
+     */
+    public function messageAction(Request $request)
+    {
+
+        $contactForm = $this->createForm(new ContactType());
+        $contactForm->bind($request);
+        if ($contactForm->isValid()) {
+
+          //Send a mail 
+          $passed = array( 
+            'ip' => $request->getClientIp(),
+            'name' => $contactForm->get('name')->getData(),
+            'email' => $contactForm->get('email')->getData(),
+            'message' => $contactForm->get('message')->getData(),
+          );
+
+          $message = \Swift_Message::newInstance()
+              ->setSubject('Reservation')
+              ->setFrom('pierreblanche@beauvivre.fr')
+              ->setTo('vincent.beauvivre@gmail.com')
+              ->setBody(
+                  $this->renderView(
+                      'VibbyBookingBundle:Mails:message.html.twig',
+                      $passed                )
+              )
+              ->setContentType('text/html')
+          ;
+          $this->get('mailer')->send($message);
+
+          $return = $this->renderView(
+            'VibbyBookingBundle:Form:success.html.twig'
+          );
+
+        } else {
+
+          $return = $this->renderView(
+            'VibbyBookingBundle:Form:contact.html.twig',
+            array('contactForm' => $contactForm->createView())
+          );
+        }
+        
+        $response = new Response(json_encode($return));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+        
+    }    
+
     /**
      * Shows a calendar
      *

@@ -1,0 +1,16 @@
+<form id="contact" method="POST" {{ form_enctype(contactForm) }} data="Remplissez tout les champs du formulaire de contact !" action="{{ path('message') }}" >
+        
+    {{ form_widget(contactForm) }}
+{#
+	<label for="contactnom">Nom </label>
+	<input id="contactnom" class="pregValidate" name="name" title="" data="/^.[^\x00-\x1F\x7F]{2,}$/i" /><br />
+
+	<label for="contactemail">Email </label>
+	<input id="contactemail" class="pregValidate" name="email" title="" data="/^[a-z0-9_\+-]+(\.[a-z0-9_\+.-]+)*@[a-z0-9-]+(\.[a-z0-9.-]+)*\.([a-z]{2,6})$/i" /><br />
+
+	<label for="contactmessage">Message </label>
+	<textarea id="contactmessage" class="pregValidate" name="message" title="" data="/^.[^\x00-\x1F\x7F]{2,}$/i" /></textarea><br />
+#}
+
+	<label></label><input class="submit" type="submit" value="Et zou !"><br />
+</form>

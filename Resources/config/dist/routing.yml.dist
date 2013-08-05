@@ -1,0 +1,6 @@
+
+
+VibbyBookingBundle:
+    resource: "@VibbyBookingBundle/Resources/config/routing/booking.yml"
+
+   
