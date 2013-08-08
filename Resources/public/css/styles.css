@@ -479,9 +479,14 @@ font-weight:normal;
   height:250px;
   padding:20px 40px 20px 300px;
 }  
-.apropos p{     
+.apropos p, .apropos li{     
+  font-size: 1.13em;
   color:#333;
 }  
+.apropos ul {
+    list-style: circle;
+}
+
   
 input, textarea {
   border:none;
