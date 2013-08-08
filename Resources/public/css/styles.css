@@ -155,22 +155,32 @@ estilos Head
     
   #heat_right_menu  {
       border: 0px none;
+      position: relative;
     }
 
   #heat_right_menu  li a {
     display:block;
     padding:5px 10px;
     height:100%;
-    text-decoration:none;}
-
-                     
-          
-    #heat_right_menu li a {
+    text-decoration:none;
     background-color:#16abc9;
     color:#FFF;
     font-weight: bold;
     }
-    
+#heat_right_menu   .pdf span{
+  font-weight: normal;
+  font-size: 3em;
+}
+#heat_right_menu   .pdf {
+  position: absolute;
+  right: -1.5em;
+  padding: 0 .7em;
+  top: -1.5em;
+  text-align: center;
+  text-decoration: none;
+  color:#FFF;
+  font-weight: bold;
+}    
         
     #heat_right_menu li a:hover {
     color:#000;
@@ -840,7 +850,4 @@ input.error textarea.error{
     -webkit-transform:rotate(8deg);
     margin-top:100px;
 }
-
-
-
 
